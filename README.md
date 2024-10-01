@@ -12,8 +12,6 @@ A library to do a bitmap receipt easier!
 
 ## Installation
 
-You can easily add `ReceiptBitmapGenerator` to your Android project using [JitPack](https://jitpack.io).
-
 ### Step 1: Add JitPack repository
 
 Add the JitPack repository to your project-level `build.gradle` file:
@@ -31,7 +29,7 @@ allprojects {
 
 ```build.gradle
 dependencies {
-    implementation 'com.github.luantrongnguyen:receipt-printooth:1.0.0'
+    implementation 'com.github.luantrongnguyen:receipt-printooth:1.0.1'
 }
 ```
 
