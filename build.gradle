@@ -11,12 +11,10 @@ android {
     defaultConfig {
         minSdk 23
         targetSdk 34
-        versionCode 3
-        versionName "1.0.3"
-
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -29,6 +27,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '17'
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
     }
 }
 tasks.register("prepareKotlinBuildScriptModel"){}
@@ -52,7 +55,7 @@ publishing {
             }
             groupId = 'com.github.luantrongnguyen'
             artifactId = 'receipt-printooth'
-            version = '1.0.3'
+            version = '1.0.4'
         }
     }
     repositories {
