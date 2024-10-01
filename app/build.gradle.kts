@@ -101,4 +101,8 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:3.9.0")
 
+    implementation ("com.github.luantrongnguyen:receipt-printooth:1.0.0")
+
+
+
 }
