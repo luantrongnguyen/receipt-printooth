@@ -75,3 +75,6 @@ dependencies {
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }
 
+tasks.named("publishReleasePublicationToMavenLocal") {
+    dependsOn("bundleReleaseAar") // Declare dependency
+}
