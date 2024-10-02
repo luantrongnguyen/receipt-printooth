@@ -105,6 +105,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:3.9.0")
-
+    api ("androidx.appcompat:appcompat:1.6.1")
+    api ("com.google.android.material:material:1.9.0")
 
 }
