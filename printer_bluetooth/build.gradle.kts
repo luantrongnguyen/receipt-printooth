@@ -71,6 +71,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("io.github.pilgr:paperdb:2.7.2")
+    implementation ("com.afollestad.assent:core:3.0.2")
+    implementation ("androidx.appcompat:appcompat:1.6.1")
+    implementation ("com.google.android.material:material:1.9.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }
 
 tasks.named("publishReleasePublicationToMavenLocal") {
