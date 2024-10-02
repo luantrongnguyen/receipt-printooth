@@ -8,7 +8,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.luantrongnguyen"
             artifactId = "receipt-printooth"
-            version = "1.0.0-release"
+            version = "1.0.1-release"
 
             // Use the releaseAar component for Android library
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
@@ -63,14 +63,12 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation ("com.github.mazenrashed:Printooth:1.3.1")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import vn.herosoft.printer_bitmap_bluetooth.Receipt
 import vn.herosoft.printer_bitmap_bluetooth.ReceiptBitmapGenerator
+import vn.herosoft.printer_bitmap_bluetooth.ReceiptBitmapGenerator.Companion._38MM
 import vn.toolsstation.mvvmexample.R
 import vn.toolsstation.mvvmexample.ui.admin.model.ReceiptDetail
 import vn.toolsstation.mvvmexample.ui.admin.model.Receipts
@@ -104,6 +105,7 @@ fun  SeeOrdersPage(order:Receipts,myViewModel: ReceiptDetailViewModel = viewMode
 
     val footerText = "Thank you for your purchase!\nVisit us again.\nwww.thegovape.com"
     val receiptBitmapGenerator = ReceiptBitmapGenerator.Builder()
+        .setDiameter(_38MM)
         .setCustomerDetails(order.nameCustomer, order.phone, order.deliveryAddress)
         .setLogo(logo!!)
     for(i in items){
@@ -111,6 +113,7 @@ fun  SeeOrdersPage(order:Receipts,myViewModel: ReceiptDetailViewModel = viewMode
     }
 
     receiptBitmapGenerator.setFooterText(footer = footerText)
+    receiptBitmapGenerator.build()
 
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
@@ -123,7 +126,7 @@ fun  SeeOrdersPage(order:Receipts,myViewModel: ReceiptDetailViewModel = viewMode
             Column(modifier = Modifier.padding(16.dp).align(Alignment.CenterHorizontally)) {
 
                 Image(
-                    bitmap = receiptBitmapGenerator.build(context = context).asImageBitmap(),
+                    bitmap = receiptBitmapGenerator.getBitmap()!!.asImageBitmap(),
                     contentDescription = "some useful description",
                 )
                 Button(modifier = Modifier.padding(16.dp).align(Alignment.CenterHorizontally),onClick = { receiptBitmapGenerator.printReceipt(context) }) {
