@@ -8,7 +8,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.luantrongnguyen"
             artifactId = "receipt-printooth"
-            version = "1.0.2-release"
+            version = "1.0.3-release"
 
             // Use the releaseAar component for Android library
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
@@ -30,7 +30,7 @@ android {
     }
     defaultConfig {
         minSdk = 23
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -71,6 +71,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.android.support:multidex:1.0.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("io.github.pilgr:paperdb:2.7.2")
     implementation ("com.afollestad.assent:core:3.0.2")
