@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MvvmExample"
         tools:replace="android:theme"
-        android:name="androidx.multidex.MultiDexApplication" 
+        android:name="androidx.multidex.MultiDexApplication"
         tools:targetApi="31">
         <activity
             android:name=".ui.admin.view.AdminActivity"

@@ -8,7 +8,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.luantrongnguyen"
             artifactId = "receipt-printooth"
-            version = "1.0.6-release"
+            version = "1.0.7-release"
 
             // Use the releaseAar component for Android library
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
