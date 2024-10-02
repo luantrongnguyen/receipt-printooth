@@ -45,7 +45,7 @@ Include the `ReceiptBitmapGenerator` class in your Android project. The class pr
 // Step 1: Create an instance of the ReceiptBitmapGenerator using the Builder pattern
 val receiptBitmapGenerator = ReceiptBitmapGenerator.Builder()
     .setDiameter(ReceiptBitmapGenerator._38MM) // Set the printer diameter
-    .setCustomerDetails("John Doe", "123456789", "123 Main St")
+    .setCustomerDetails("Trong Luan", "123456789", "123 GoVap Vietnam")
     .setLogo(context.getDrawable(R.drawable.logo)) // Set your logo drawable
     .setFooterText("Thank you for your purchase!")
     .addReceiptItem(Receipt("Product 1", 2, 15000))
