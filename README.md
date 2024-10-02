@@ -29,7 +29,7 @@ allprojects {
 
 ```build.gradle
 dependencies {
-    implementation 'com.github.luantrongnguyen:receipt-printooth:1.0.1'
+    implementation 'com.github.luantrongnguyen:receipt-printooth:1.0.2'
 }
 ```
 
