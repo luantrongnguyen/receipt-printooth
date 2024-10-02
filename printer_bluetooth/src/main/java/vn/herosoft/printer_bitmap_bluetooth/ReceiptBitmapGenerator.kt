@@ -13,14 +13,12 @@ import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.mazenrashed.printooth.Printooth
-import com.mazenrashed.printooth.data.printable.ImagePrintable
-import com.mazenrashed.printooth.data.printable.Printable
-import com.mazenrashed.printooth.data.printable.RawPrintable
-import com.mazenrashed.printooth.ui.ScanningActivity
+import vn.herosoft.printer_bitmap_bluetooth.printooth.Printooth
+import vn.herosoft.printer_bitmap_bluetooth.printooth.data.printable.ImagePrintable
+import vn.herosoft.printer_bitmap_bluetooth.printooth.data.printable.Printable
+import vn.herosoft.printer_bitmap_bluetooth.printooth.ui.ScanningActivity
 
 /**
  * ReceiptBitmapGenerator is responsible for generating a bitmap image
@@ -205,9 +203,7 @@ open class ReceiptBitmapGenerator {
                     if(bitmap != null) {
                         val al = java.util.ArrayList<Printable>().apply {
                             add(ImagePrintable.Builder(bitmap).build()) // Add receipt bitmap
-                            add(
-                                RawPrintable.Builder(byteArrayOf(27, 100, 4)).build()
-                            ) // Add raw printable data
+                            // Add raw printable data
                         }
                         Printooth.printer().print(al) // Print using Printooth
                     }else

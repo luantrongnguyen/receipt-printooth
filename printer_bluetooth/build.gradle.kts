@@ -59,7 +59,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -69,8 +71,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation ("com.github.mazenrashed:Printooth:1.3.1")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation ("io.github.pilgr:paperdb:2.7.2")
+    implementation ("com.afollestad.assent:core:3.0.2")
 }
 
 tasks.named("publishReleasePublicationToMavenLocal") {
