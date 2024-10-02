@@ -8,7 +8,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.luantrongnguyen"
             artifactId = "receipt-printooth"
-            version = "1.0.5-release"
+            version = "1.0.6-release"
 
             // Use the releaseAar component for Android library
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
@@ -71,6 +71,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation ("androidx.multidex:multidex:2.0.1")
     implementation ("io.github.pilgr:paperdb:2.7.2")
     implementation ("com.afollestad.assent:core:3.0.2")
     implementation ("androidx.appcompat:appcompat:1.6.1")

@@ -20,7 +20,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -106,6 +106,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:3.9.0")
 
+    api ("androidx.multidex:multidex:2.0.1")
     api ("io.github.pilgr:paperdb:2.7.2")
     api ("com.afollestad.assent:core:3.0.2")
     api ("androidx.appcompat:appcompat:1.6.1")
