@@ -56,6 +56,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -102,7 +106,10 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:3.9.0")
 
-
-
+    api ("io.github.pilgr:paperdb:2.7.2")
+    api ("com.afollestad.assent:core:3.0.2")
+    api ("androidx.appcompat:appcompat:1.6.1")
+    api ("com.google.android.material:material:1.9.0")
+    api ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }
