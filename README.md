@@ -40,22 +40,22 @@ Include the `ReceiptBitmapGenerator` class in your Android project. The class pr
 
 ### Step 2: Generate the Receipt
 
+
 ```kotlin
-val receiptBitmapGenerator = ReceiptBitmapGenerator()
-
-val bitmap: Bitmap = receiptBitmapGenerator.generateReceipt(
-    context = this,
-    customerName = "John Doe",
-    customerPhone = "123-456-7890",
-    customerAddress = "123 Main St, Cityville",
-    logo = yourLogoDrawable, // Company logo
-    listReceipt = arrayListOf(
-        Receipt(name = "Product 1", quantity = 1, price = "5000"),
-        Receipt(name = "Product 2", quantity = 2, price = "3000")
-    ),
-    footerText = "Thank you for your purchase!"
-)
-
-// Use the bitmap (e.g., display or print)
-
+// Step 1: Create an instance of the ReceiptBitmapGenerator using the Builder pattern
+val receiptBitmapGenerator = ReceiptBitmapGenerator.Builder()
+    .setDiameter(ReceiptBitmapGenerator._38MM) // Set the printer diameter
+    .setCustomerDetails("John Doe", "123456789", "123 Main St")
+    .setLogo(context.getDrawable(R.drawable.logo)) // Set your logo drawable
+    .setFooterText("Thank you for your purchase!")
+    .addReceiptItem(Receipt("Product 1", 2, 15000))
+    .addReceiptItem(Receipt("Product 2", 1, 5000))
+    .build()
+// Step 2: Print the receipt
+// Make sure you have connected to your Bluetooth Printer device
+// The printReceipt method will check for necessary permissions and use Printooth to print the generated bitmap.
+receiptBitmapGenerator.printReceipt(context)
+```
+## Contributing
+Contributions are welcome! Please create a new issue or pull request for any changes or improvements.
 
