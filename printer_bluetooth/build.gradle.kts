@@ -75,7 +75,6 @@ dependencies {
     implementation(libs.material)
     implementation(files("libs\\core-3.0.2-sources.jar"))
     implementation(files("libs\\paperdb-2.7.2-sources.jar"))
-    implementation(files("libs\\paperdb-2.7.2-sources.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
