@@ -43,14 +43,18 @@ Include the `ReceiptBitmapGenerator` class in your Android project. The class pr
 
 ```kotlin
 // Step 1: Create an instance of the ReceiptBitmapGenerator using the Builder pattern
+
 val receiptBitmapGenerator = ReceiptBitmapGenerator.Builder()
     .setDiameter(ReceiptBitmapGenerator._38MM) // Set the printer diameter
     .setCustomerDetails("Trong Luan", "123456789", "123 GoVap Vietnam")
     .setLogo(context.getDrawable(R.drawable.logo)) // Set your logo drawable
     .setFooterText("Thank you for your purchase!")
-    .addReceiptItem(Receipt("Product 1", 2, 15000))
-    .addReceiptItem(Receipt("Product 2", 1, 5000))
-    .build()
+    
+receiptBitmapGenerator.addReceiptItem(Receipt("Product 1", 1, 5000))
+receiptBitmapGenerator.addReceiptItem(Receipt("Product 2", 2, 5000))
+
+receiptBitmapGenerator.build()
+
 // Step 2: Print the receipt
 // Make sure you have connected to your Bluetooth Printer device
 // The printReceipt method will check for necessary permissions and use Printooth to print the generated bitmap.
