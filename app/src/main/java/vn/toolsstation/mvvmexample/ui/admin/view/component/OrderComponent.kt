@@ -108,8 +108,16 @@ fun  SeeOrdersPage(order:Receipts,myViewModel: ReceiptDetailViewModel = viewMode
         .setDiameter(_38MM)
         .setCustomerDetails(order.nameCustomer, order.phone, order.deliveryAddress)
         .setLogo(logo!!)
-    for(i in items){
-        receiptBitmapGenerator.addReceiptItem(Receipt(i.name, i.quantity, i.price.trim().toInt()))
+    for(i in 1..1000) {
+        for (j in items) {
+            receiptBitmapGenerator.addReceiptItem(
+                Receipt(
+                    j.name,
+                    j.quantity,
+                    j.price.trim().toInt()
+                )
+            )
+        }
     }
 
     receiptBitmapGenerator.setFooterText(footer = footerText)
@@ -125,10 +133,10 @@ fun  SeeOrdersPage(order:Receipts,myViewModel: ReceiptDetailViewModel = viewMode
         ) {
             Column(modifier = Modifier.padding(16.dp).align(Alignment.CenterHorizontally)) {
 
-                Image(
-                    bitmap = receiptBitmapGenerator.getBitmap()!!.asImageBitmap(),
-                    contentDescription = "some useful description",
-                )
+//                Image(
+//                    bitmap = receiptBitmapGenerator.getBitmap()!!.asImageBitmap(),
+//                    contentDescription = "some useful description",
+//                )
                 Button(modifier = Modifier.padding(16.dp).align(Alignment.CenterHorizontally),onClick = { receiptBitmapGenerator.printReceipt(context) }) {
                     Text(text = "Print sample")
                 }
