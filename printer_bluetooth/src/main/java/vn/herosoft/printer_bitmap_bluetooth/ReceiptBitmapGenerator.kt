@@ -10,6 +10,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.core.app.ActivityCompat
@@ -18,8 +19,9 @@ import vn.herosoft.printer_bitmap_bluetooth.printooth.Printooth
 import vn.herosoft.printer_bitmap_bluetooth.printooth.data.printable.ImagePrintable
 import vn.herosoft.printer_bitmap_bluetooth.printooth.data.printable.Printable
 import vn.herosoft.printer_bitmap_bluetooth.printooth.ui.ScanningActivity
-import java.util.LinkedList
-import java.util.Queue
+import vn.herosoft.printer_bitmap_bluetooth.sizes.CompanionObjectSizeFactory
+import vn.herosoft.printer_bitmap_bluetooth.sizes.sizeParsers.Size
+import vn.herosoft.printer_bitmap_bluetooth.sizes.sizeParsers.SizeParser
 
 /**
  * ReceiptBitmapGenerator is responsible for generating a bitmap image
@@ -36,7 +38,7 @@ open class ReceiptBitmapGenerator {
     private var customerAddress: String = ""
 
     // Logo of the receipt
-    private lateinit var logo: Drawable
+    private var logo: Drawable? = null
 
     // List of receipt items
     private val listReceipt: ArrayList<Receipt> = ArrayList()
@@ -44,14 +46,8 @@ open class ReceiptBitmapGenerator {
     // Footer text for the receipt
     private var footerText: String = ""
 
-    // Diameter of the receipt printer
-    private var diameter: Int = 0
     private val bitmapsToPrint: ArrayList<Bitmap> = ArrayList() // Queue for printing bitmaps
-
-    // Constant for receipt size
-    companion object {
-        const val _38MM = 57
-    }
+    private lateinit var template: SizeParser
 
     /**
      * Builder class for constructing a ReceiptBitmapGenerator with customizable fields.
@@ -61,15 +57,6 @@ open class ReceiptBitmapGenerator {
         // Instance of ReceiptBitmapGenerator to be configured
         private val generator = ReceiptBitmapGenerator()
 
-        /**
-         * Set the diameter of the receipt printer.
-         *
-         * @param diameter The diameter of the printer in millimeters.
-         */
-        fun setDiameter(diameter: Int): Builder {
-            generator.diameter = diameter
-            return this
-        }
 
         /**
          * Set the customer details (name, phone, and address) for the receipt.
@@ -116,6 +103,17 @@ open class ReceiptBitmapGenerator {
          */
         fun setFooterText(footer: String): Builder {
             generator.footerText = footer
+            return this
+        }
+
+        /**
+         * Set the template of the receipt printer.
+         *
+         * @param template The template of the printer.
+         */
+
+        fun setTemplate(template: Size):Builder{
+            generator.template = CompanionObjectSizeFactory.createFromSize(template)
             return this
         }
 
@@ -230,18 +228,34 @@ open class ReceiptBitmapGenerator {
      * @return Bitmap The generated header as a Bitmap.
      */
     private fun generateHeader(): Bitmap {
-        val width = (diameter / 25) * 190
-        val bitmap = Bitmap.createBitmap(width, 50, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        canvas.drawColor(Color.WHITE)
-
-        // Draw header text
-        val paint = Paint().apply {
-            color = Color.BLACK
-            textSize = 24f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        val width = template.width
+        val bitmap: Bitmap?
+        val canvas: Canvas?
+        if(logo != null) {
+             bitmap = Bitmap.createBitmap(width, 160, Bitmap.Config.ARGB_8888)
+             canvas = Canvas(bitmap)
+            canvas.drawColor(Color.WHITE)
+            val logoBitmap =
+                Bitmap.createScaledBitmap((logo as BitmapDrawable).bitmap, 80, 80, false)
+            canvas.drawBitmap(logoBitmap, width / 2f - logoBitmap.width / 2f, 10f, null)
+            // Draw header text
+            val paint = Paint().apply {
+                color = Color.BLACK
+                textSize = template.textSizeHeader
+                typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            }
+            canvas.drawText("Receipt", width / 2f - 30, 70f, paint)
+        }else{
+            bitmap = Bitmap.createBitmap(width, 50, Bitmap.Config.ARGB_8888)
+            canvas = Canvas(bitmap)
+            canvas.drawColor(Color.WHITE)
+            val paint = Paint().apply {
+                color = Color.BLACK
+                textSize = template.textSizeHeader
+                typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            }
+            canvas.drawText("Receipt", width / 2f - 30, 20f, paint)
         }
-        canvas.drawText("Receipt", width/2f - 30, 30f, paint)
         return bitmap
     }
 
@@ -251,11 +265,11 @@ open class ReceiptBitmapGenerator {
      * @return List<Bitmap> The list of generated body items as Bitmaps.
      */
     private fun generateBody(): List<Bitmap> {
-        val width = (diameter / 25) * 190
+        val width = template.width
         val bodyBitmaps = mutableListOf<Bitmap>()
         val textPaint = Paint().apply {
             color = Color.BLACK
-            textSize = 20f
+            textSize = template.textSizeBody
             typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         }
 
@@ -265,7 +279,7 @@ open class ReceiptBitmapGenerator {
 
         for ((index, receipt) in listReceipt.withIndex()) {
             if (index % itemsPerPage == 0) { // Create a new bitmap for a new page
-                currentBitmap = Bitmap.createBitmap(width, 55*10, Bitmap.Config.ARGB_8888)
+                currentBitmap = Bitmap.createBitmap(width, ((template.textSizeBody + 30f)*20f).toInt(), Bitmap.Config.ARGB_8888)
                 canvas = Canvas(currentBitmap)
                 canvas.drawColor(Color.WHITE)
                 yPosition = 30f
@@ -286,7 +300,7 @@ open class ReceiptBitmapGenerator {
      * @return Bitmap The generated footer as a Bitmap.
      */
     private fun generateFooter(): Bitmap {
-        val width = (diameter / 25) * 190
+        val width = template.width
         val bitmap = Bitmap.createBitmap(width, 6*25 + 100, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         canvas.drawColor(Color.WHITE)
@@ -297,8 +311,8 @@ open class ReceiptBitmapGenerator {
         }
         val textPaint = Paint().apply {
             color = Color.BLACK
-            textSize = 20f
-            typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+            textSize = template.textSizeFooter
+            typeface = Typeface.create(Typeface.MONOSPACE, Typeface.ITALIC)
         }
         canvas.drawText("Total", 4f, yPosition, textPaint)
         canvas.drawText(formatNumberWithCommas(total), width - width / 4f, yPosition, textPaint)
